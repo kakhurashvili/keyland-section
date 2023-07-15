@@ -1,0 +1,266 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+</ul>
+        <main class="home main">
+            <div class="container">
+                <section>
+                    <div class="row grid">
+                        {% for banner in banners %}
+                        <div class="grid-item col-lg-{{ banner.size_value }} height-{{ banner.height }}">
+                            <div class="home-banner">
+                                <figure>
+                                    <img src="{{ banner.image.url }}" width="{{ banner.image_width }}" height="{{ banner.image_height }}" alt="banner" />
+                                </figure>
+                                <div class="banner-content content-right">
+                                    <h3 class="ls-10" style="color: {{ banner.text_color }}"><strong>{{ banner.title }}</strong></h3>
+                                    <p class="font2" style="color: {{ banner.text_color }}">{{ banner.subtitle }}</p>
+                                    {% if banner.button_text and banner.button_link %}
+                                        <a href="{{ banner.button_link }}" class="btn" style="color: {{ banner.text_color }}">{{ banner.button_text }} <i class="fas fa-long-arrow-alt-right"></i></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+
+                        <div class="col-1 pr-0 pl-0 grid-col-sizer"></div>
+                    </div>
+
+
+
+                <hr class="mt-0">
+               
+            </section>
+            <section class="info-box-container mb-0 appear-animate" data-animation-name="fadeIn" data-animation-delay="100">
+                <div class="row">
+                    {% for info_box in info_boxes %}
+                    <div class="col-sm-6 col-xl-3 mb-2 mb-xl-0">
+                        <div class="info-box info-box-icon-left justify-content-sm-center justify-content-start p-0">
+                            <i class="{{ info_box.icon }} line-height-1"></i>
+            
+                            <div class="info-box-content">
+                                <h4 class="ls-25 line-height-1">{{ info_box.title }}</h4>
+                                <p class="text-body">{{ info_box.content }}</p>
+                            </div>
+                            <!-- End .info-box-content -->
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <section class="featured-section product-slider-tab appear-animate" data-animation-name="fadeIn" data-animation-delay="100">
+                <div class="heading d-flex align-items-center flex-column flex-lg-row">
+                    <div class="section-title">
+                        <h2 class="mt-1 mb-1">FEATURED PRODUCTS</h2>
+                    </div>
+                    <ul class="nav product-filter-items ml-lg-auto justify-content-center mb-0" id="myTab" role="tablist">
+                        {% for category in featured_categories %}
+                        <li class="nav-item product-filter-item">
+                            <a class="nav-link {% if forloop.first %}active{% endif %}" id="{{ category.slug }}-tab" data-toggle="tab" href="#{{ category.slug }}" role="tab" aria-controls="{{ category.slug }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" onclick="loadProducts('{{ category.slug }}')">{{ category.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    {% for category in featured_categories %}
+                    <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ category.slug }}" role="tabpanel" aria-labelledby="{{ category.slug }}-tab">
+                        <div class="products-slider owl-carousel owl-theme" data-owl-options="{
+                            'margin': 20,
+                            'dots': false,
+                            'nav': false,
+                            'loop': false,
+                            'responsive': {
+                                '0': {
+                                    'items': 2
+                                },
+                                '576': {
+                                    'items': 3
+                                },
+                                '768': {
+                                    'items': 4
+                                },
+                                '992': {
+                                    'items': 4
+                                },
+                                '1200': {
+                                    'items': 5,
+                                    'margin': 2
+                                }
+                            }
+                            
+                        }">
+                            {% for product in category.featured_product.sub_category.products.all %}
+                            <div class="product-default">
+                                <figure>
+                                    <a href="{% url 'detail' product.slug product.sku %}">
+                                        <img src="{{ product.image.url }}" width="327" height="327" alt="Product" />
+                                    </a>
+                                </figure>
+                                <div class="product-details">
+                                    <div class="category-list">
+                                        <a href="{% url 'category' product.sub_category.category.main_category.slug product.sub_category.category.slug product.sub_category.slug %}" class="product-category">{{ product.sub_category.title }}</a>
+                                    </div>
+                                    <h3 class="product-title">
+                                        <a href="{% url 'detail' product.slug product.sku %}">{{ product.name }}</a>
+                                    </h3>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:80%"></span>
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div>
+                                    </div>
+                                    <div class="price-box">
+                                        {% if product.discount %}
+                                            <del class="old-price">${{ product.old_price }}</del>
+                                            <span class="product-price">${{ product.price }}</span>
+                                        {% else %}
+                                            <span class="product-price">${{ product.old_price }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-action">
+                                        <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i class="icon-heart"></i></a>
+                                        <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
+                                        <a href="{% url 'product_quick_view' slug=product.slug sku=product.sku %}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- End .products-slider -->
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            </div>
+
+            <section class="banner-section home-banner mb-6 appear-animate" data-animation-name="fadeIn" data-animation-delay="100" data-parallax="{'speed': 1.8, 'enableOnMobile': true}" data-image-src="{{ banner_second.image.url }}">
+                <div class="banner-content full-content d-flex flex-lg-row flex-column align-items-center mt-1 mt-lg-0">
+                    <div class="left-content">
+                        <div>
+                            <span class="font1">{{ banner_second.font1 }}</span>
+                            <h4>{{ banner_second.heading }}</h4>
+                        </div>
+                        <a href="{{ banner_second.button_link }}" class="btn">{{ banner_second.button_text }} <i class="fas fa-long-arrow-alt-right"></i></a>
+                    </div>
+                    <div class="right-content banner-info">
+                        <a href="#" class="btn skew-box bg-white">{{ banner_second.coupon_text }}</a>
+                        <h3 class="sale-off skew-box"><span class="text-white">${{ banner_second.coupon_discount }}</span> off</h3>
+                    </div>
+                </div>
+            </section>
+            
+            
+            <section>
+                <div class="container">
+                    <div class="featured-section bg-white appear-animate" data-animation-name="fadeIn" data-animation-delay="100">
+                      <div class="row">
+                        {% for product in products %}
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                          <div class="product-default inner-quickview left-details inner-icon">
+                            <figure>
+                              <a href="{% url 'detail' product.slug product.sku %}">
+                                <img src="{{ product.image.url }}" width="257" height="257" alt="Product" />
+                              </a>
+                              <div class="btn-icon-group">
+                                <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i></a>
+                              </div>
+                              <a href="{% url 'product_quick_view' slug=product.slug sku=product.sku %}" class="btn-quickview" title="Quick View">Quick View</a>
+                            </figure>
+                            <div class="product-details">
+                              <div class="category-wrap">
+                                <div class="category-list">
+                                    <a href="{% url 'category' product.sub_category.category.main_category.slug product.sub_category.category.slug product.sub_category.slug %}" class="product-category">{{ product.sub_category.title }}</a>
+                                </div>
+                                <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i class="icon-heart"></i></a>
+                              </div>
+                              <h3 class="product-title"><a href="{{ product.url }}">{{ product.name }}</a></h3>
+                              <div class="ratings-container">
+                                <div class="product-ratings">
+                                  <span class="ratings" style="width:{{ product.rating }}%"></span>
+                                  <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                              </div>
+                              <div class="price-box">
+                                {% if product.discount %}
+                                    <del class="old-price">${{ product.old_price }}</del>
+                                    <span class="product-price">${{ product.price }}</span>
+                                {% else %}
+                                    <span class="product-price">${{ product.old_price }}</span>
+                                {% endif %}
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                      <a href="{% url 'category' %}" class="btn with-icon align-center font2">Browse All<i
+                          class="fas fa-long-arrow-alt-right"></i></a>
+                    </div>
+                    <hr />
+                  </div>
+                  
+
+                <div class="blog-section container mb-4 appear-animate" data-animation-name="fadeIn" data-animation-delay="100">
+                    <div class="row">
+                        <div class="col-xl-6 mb-3 mb-xl-0">
+                            <div class="section-title d-flex align-items-center mt-1 mb-1">
+                                <h2 class="mb-0">RECENT ARTICLE</h2>
+                                <hr class="vertical d-none d-sm-block">
+                                <a href="#" class="with-icon mr-sm-auto ml-4 mr-4 ml-sm-0">VIEW BLOG<i
+                                        class="fas fa-long-arrow-alt-right"></i></a>
+                            </div>
+
+                            <div class="row post">
+                                <div class="col-md-6">
+                                    <div class="post-media">
+                                        <a href="single.html">
+                                            <img src="assets/images/demoes/demo29/banners/banner-article.jpg" width="396" height="297" alt="Post" />
+                                        </a>
+                                        <div class="post-date">
+                                            <span class="day ls-0">24</span>
+                                            <span class="month">JUL-19</span>
+                                        </div>
+                                        <!-- End .post-date -->
+                                    </div>
+                                    <!-- End .post-media -->
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="post-body">
+                                        <a href="#" class="post-category">DESIGN TRENDS</a>
+                                        <h3 class="post-title">Top quality flooring and parquets</h3>
+                                        <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus sem. Aenean pretium convallis lorem, sit amet dapibus...
+                                        </p>
+                                        <a href="single.html" class="btn with-icon">READ MORE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="section-title d-flex align-items-center mt-1 mb-1">
+                                <h2 class="mb-0">FROM INSTAGRAM</h2>
+                                <hr class="vertical d-none d-sm-block">
+                                <a href="https://www.instagram.com/keyland.space.1/" class="with-icon mr-sm-auto ml-4 mr-4 ml-sm-0">@keyland.space.1<i
+                                        class="fas fa-long-arrow-alt-right"></i></a>
+                            </div>
+                            <div class="row row-sm">
+                                <div class="col-sm-4 mt-2 mb-2">
+                                    <img class="w-100" src="assets/images/demoes/demo29/instagram/instagram1.jpg" width="263" height="263" alt="Instagram" />
+                                </div>
+                                <div class="col-sm-4 mt-2 mb-2">
+                                    <img class="w-100" src="assets/images/demoes/demo29/instagram/instagram2.jpg" width="263" height="263" alt="Instagram" />
+                                </div>
+                                <div class="col-sm-4 mt-2 mb-2">
+                                    <img class="w-100" src="assets/images/demoes/demo29/instagram/instagram3.jpg" width="263" height="263" alt="Instagram" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+{% endblock %}

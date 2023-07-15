@@ -1,0 +1,376 @@
+
+{% load static %}
+
+        <header class="header">
+            <div class="header-middle sticky-header">
+                <div class="container">
+                    <div class="header-left pl-0">
+                        <nav class="main-nav w-100">
+                            <ul class="menu">
+                                <li>
+                                    <a href="{% url 'index' %}">Home</a>
+                                </li>
+                                <li>
+                                    <a href="demo29-shop.html">Shop</a>
+                                    <div class="megamenu megamenu-fixed-width megamenu-3cols">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <a href="#" class="nolink">Category </a>
+                                                {% for category in categories %}
+                                                <ul class="submenu">
+                                                    <li><a href="{% url 'category' category.slug %}">{{category.title}}</a></li>
+        
+                                                </ul>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-lg-4">
+
+                                            </div>
+                                            <div class="col-lg-4 p-0">
+                                                <div class="menu-banner">
+                                                    <figure>
+                                                        <img src="assets/images/menu-banner.jpg" alt="Menu banner" width="300" height="300">
+                                                    </figure>
+                                                    <div class="banner-content">
+                                                        <h4>
+                                                            <span class="">UP TO</span><br />
+                                                            <b class="">50%</b>
+                                                            <i>OFF</i>
+                                                        </h4>
+                                                        <a href="category.html" class="btn btn-sm btn-dark">SHOP NOW</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End .megamenu -->
+                                </li>
+                                <li class="active">
+                                    <a href="demo29-product.html">Products</a>
+                                    <div class="megamenu megamenu-fixed-width">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <a href="#" class="nolink">PRODUCT PAGES</a>
+                                                <ul class="submenu">
+
+                                                </ul>
+                                            </div>
+                                            <!-- End .col-lg-4 -->
+
+                                            <div class="col-lg-4">
+                                                <a href="#" class="nolink">PRODUCT LAYOUTS</a>
+                                                <ul class="submenu">
+
+                                                </ul>
+                                            </div>
+                                            <!-- End .col-lg-4 -->
+
+                                            <div class="col-lg-4 p-0">
+                                                <div class="menu-banner menu-banner-2">
+                                                    <figure>
+                                                        <img src="assets/images/menu-banner-1.jpg" alt="Menu banner" class="product-promo" width="380" height="790">
+                                                    </figure>
+                                                    <i>OFF</i>
+                                                    <div class="banner-content">
+                                                        <h4>
+                                                            <span class="">UP TO</span><br />
+                                                            <b class="">50%</b>
+                                                        </h4>
+                                                    </div>
+                                                    <a href="category.html" class="btn btn-sm btn-dark">SHOP NOW</a>
+                                                </div>
+                                            </div>
+                                            <!-- End .col-lg-4 -->
+                                        </div>
+                                        <!-- End .row -->
+                                    </div>
+                                    <!-- End .megamenu -->
+                                </li>
+                                <li>
+                                    <a href="#">Pages</a>
+                                    <ul>
+                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                        <li><a href="cart.html">Shopping Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="dashboard.html">Dashboard</a></li>
+                                        <li><a href="about.html">About Us</a></li>
+                                        <li><a href="#">Blog</a>
+                                            <ul>
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="single.html">Blog Post</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="contact.html">Contact Us</a></li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="forgot-password.html">Forgot Password</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="https://1.envato.market/DdLk5" target="_blank">Buy Porto</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- End .header-left -->
+                    <div class="header-center ml-lg-auto ml-0">
+                        <button class="mobile-menu-toggler text-dark mr-2" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <a href="demo29.html" class="logo">
+                            <img src="{% static 'images/logo-black.png' %}" width="111" height="44" alt="Porto Logo">
+                        </a>
+                    </div>
+
+                    <div class="header-right">
+                        <a href="login.html" class="header-icon" title="Login"><i class="icon-user-2"></i></a>
+
+                        <div class="header-icon header-search header-search-popup header-search-category d-none d-sm-block">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-magnifier"></i></a>
+                            <form action="{% url 'search' %}" method="GET">
+                                <div class="header-search-wrapper">
+                                    <input type="search" class="form-control" name="search_query" id="q" placeholder="I'm searching for..." required="">
+                                    <button class="btn icon-search-3" type="submit"></button>
+                                </div>
+                                <!-- End .header-search-wrapper -->
+                            </form>
+                        </div>
+                        
+
+                        <a href="wishlist.html" class="header-icon header-icon-wishlist" title="Wishlist"><i
+                                class="icon-wishlist-2"></i></a>
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                <i class="minicart-icon"></i>
+                                <span class="cart-count badge-circle">{{cart.num_of_items}}</span>
+                            </a>
+
+                            <div class="cart-overlay"></div>
+                            {% for item in cartitems %}
+
+                            <div class="dropdown-menu mobile-cart">
+                                <a href="#" title="Close (Esc)" class="btn-close">×</a>
+
+                                <div class="dropdownmenu-wrapper custom-scrollbar">
+                                    <div class="dropdown-cart-header">Shopping Cart</div>
+                                    <!-- End .dropdown-cart-header -->
+                                    {% for item in cartitems %}
+
+                                    <div class="dropdown-cart-products">
+                                        <div class="product">
+                                            <div class="product-details">
+                                                <h4 class="product-title">
+                                                    <a href="{{item.product.id}}">{{item.product.name}}</a> #gasasworebelia
+                                                </h4>
+
+                                                <span class="cart-product-info">
+                                                    <span class="cart-product-qty">{{item.quantity}}</span> × ${{item.product.price}}
+                                                </span>
+                                            </div>
+                                            <!-- End .product-details -->
+
+                                            <figure class="product-image-container">
+                                                <a href="{{item.product.image.url}}" class="product-image">
+                                                    <img src="{{item.product.image.url}}" alt="product" width="80" height="80">
+                                                </a>
+
+                                                <a href="{{item.product.sku}}" class="btn-remove" title="Remove Product"><span>×</span></a>
+                                            </figure>
+                                        </div>
+
+                                    </div>
+                                    {% endfor %}  
+
+                                    <!-- End .cart-product -->
+                                    <div class="dropdown-cart-total">
+                                        
+                                        <span>SUBTOTAL:</span>
+                                        <span class="cart-total-price float-right">{{cart.cart_total|floatformat:2}}</span>
+                                       
+                                    </div>
+                                    <!-- End .dropdown-cart-total -->
+
+                                    <div class="dropdown-cart-action">
+                                        <a href="{% url 'cart' %}" class="btn btn-gray btn-block view-cart">View
+                                            Cart</a>
+                                        <a href="{% url 'checkout' %}" class="btn btn-dark btn-block">Checkout</a>
+                                    </div>
+                                    <!-- End .dropdown-cart-total -->
+                                </div>
+                                <!-- End .dropdownmenu-wrapper -->
+                            </div>
+                            {% endfor %}  
+
+                            <!-- End .dropdown-menu -->
+                        </div>
+                        <!-- End .dropdown -->
+                    </div>
+                    <!-- End .header-right -->
+                </div>
+                <!-- End .container -->
+            </div>
+            <!-- End .header-middle -->
+
+            <div class="container">
+                <div class="header-bottom w-100">
+                    <h4 class="mb-0 text-center pr-3 pl-3">Get 10% OFF at the Porto Kitchen Selection - <a href="#">Shop
+                            Now!</a></h4>
+                </div>
+            </div>
+            <!-- End .header-top -->
+        </header>
+        <!-- End .header -->
+
+
+        detail html 
+        <script>
+            let counter = "{{counter}}"
+            let heartIcon = document.getElementById('heart')
+            let heartContainer = document.getElementsByClassName('btn-icon-wish add-wishlist')
+            let form = document.getElementById("form");
+          
+           
+            form.addEventListener("click", function(e) {
+              e.preventDefault()
+              if(user=='AnonymousUser'){
+                console.log('nsnsnsnsn')
+                
+                document.getElementById('removeItem').innerText = 'You need to be signed in'
+              }
+              
+              console.log(e.target)
+              counter++;
+              product_id = e.target.dataset.id
+              console.log(product_id)
+              if (counter % 2 == 0) {
+                counter = 0;
+                
+              }
+              console.log(counter);
+             
+             
+              const data = { counter: counter, d: product_id };
+              console.log(data['d'])
+              let url = '/addsaveitems'
+              fetch(url, {
+                method: "POST", // or 'PUT'
+                headers: {
+                  "Content-Type": "application/json",
+                  'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data),
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log("Success:", data);
+                  console.log(typeof(data))
+                  if(data > 0){
+                   
+                      console.log('weeeeeeeeeeeeeeeee')
+                      heartIcon.setAttribute("class","icon-wishlist-2" )
+        
+                      
+                  }
+                  else{
+                      
+                      
+                      heartIcon.setAttribute("class","icon-wishlist-2" )
+        
+                      
+                      
+                  }
+                  
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+          
+          
+            });
+           
+          </script>
+            
+                           
+            <section class="featured-section product-slider-tab appear-animate" data-animation-name="fadeIn" data-animation-delay="100">
+                <div class="heading d-flex align-items-center flex-column flex-lg-row">
+                    <div class="section-title">
+                        <h2 class="mt-1 mb-1">FEATURED PRODUCTS</h2>
+                    </div>
+                    <ul class="nav product-filter-items ml-lg-auto justify-content-center mb-0" id="myTab" role="tablist">
+                        {% for category in featured_categories %}
+                        <li class="nav-item product-filter-item">
+                            <a class="nav-link {% if forloop.first %}active{% endif %}" id="{{ category.slug }}-tab" data-toggle="tab" href="#{{ category.slug }}" role="tab" aria-controls="{{ category.slug }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" onclick="loadProducts('{{ category.slug }}')">{{ category.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    {% for category in featured_categories %}
+                    <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ category.slug }}" role="tabpanel" aria-labelledby="{{ category.slug }}-tab">
+                        <div class="products-slider owl-carousel owl-theme" data-owl-options="{
+                            'margin': 20,
+                            'dots': false,
+                            'nav': false,
+                            'loop': false,
+                            'responsive': {
+                                '0': {
+                                    'items': 2
+                                },
+                                '576': {
+                                    'items': 3
+                                },
+                                '768': {
+                                    'items': 4
+                                },
+                                '992': {
+                                    'items': 4
+                                },
+                                '1200': {
+                                    'items': 5,
+                                    'margin': 2
+                                }
+                            }
+                            
+                        }">
+                            {% for product in category.featured_product.sub_category.products.all %}
+                            <div class="product-default">
+                                <figure>
+                                    <a href="{% url 'detail' product.slug product.sku %}">
+                                        <img src="{{ product.image.url }}" width="327" height="327" alt="Product" />
+                                    </a>
+                                </figure>
+                                <div class="product-details">
+                                    <div class="category-list">
+                                        <a href="{% url 'category' product.sub_category.category.main_category.slug product.sub_category.category.slug product.sub_category.slug %}" class="product-category">{{ product.sub_category.title }}</a>
+                                    </div>
+                                    <h3 class="product-title">
+                                        <a href="{% url 'detail' product.slug product.sku %}">{{ product.name }}</a>
+                                    </h3>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:80%"></span>
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div>
+                                    </div>
+                                    <div class="price-box">
+                                        {% if product.discount %}
+                                            <del class="old-price">${{ product.old_price }}</del>
+                                            <span class="product-price">${{ product.price }}</span>
+                                        {% else %}
+                                            <span class="product-price">${{ product.old_price }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-action">
+                                        <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i class="icon-heart"></i></a>
+                                        <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
+                                        <a href="{% url 'product_quick_view' slug=product.slug sku=product.sku %}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- End .products-slider -->
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            

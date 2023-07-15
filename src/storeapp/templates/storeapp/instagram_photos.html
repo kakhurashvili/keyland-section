@@ -1,0 +1,6 @@
+{% for photo in media %}
+    <div class="photo-container">
+        <img src="{{ photo.media_url }}" alt="Instagram Photo">
+        <p>{{ photo.caption }}</p>
+    </div>
+{% endfor %}

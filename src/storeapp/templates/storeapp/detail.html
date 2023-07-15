@@ -1,0 +1,1282 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .btn-icon-wish {
+      background: none;
+      border: none;
+    }
+  
+    #heart {
+      font-size: 30px;
+    }
+  </style>
+
+    <main class="main">
+      <div class="container">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    {% if main_category %}
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'category' main_category.slug %}">{{ main_category.title }}</a>
+                        </li>
+                    {% endif %}
+                    {% if category %}
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'category' main_category.slug category.slug %}">{{ category.title }}</a>
+                        </li>
+                    {% endif %}
+                    {% if sub_category %}
+                        <li class="breadcrumb-item active" aria-current="page">{{ sub_category.title }}</li>
+                    {% endif %}
+                </ol>
+            </nav>
+
+          <div class="row main-content-wrapper">
+              <div class="col-lg-9">
+                  <div class="product-single-container product-single-default">
+                      <div class="cart-message d-none">
+                          <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
+                          <span>has been added to your cart.</span>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-xl-5 col-md-6 product-single-gallery mb-3">
+                              <div class="product-slider-container">
+                                  <div class="label-group">
+                                    {% if product.top_deal or product.flash_sales %}
+                                      <div class="product-label label-hot">HOT</div>
+                                      <!---->
+                                      <div class="product-label label-sale">
+                                        {{ percentage }}%
+                                      </div>
+                                      {% endif %}
+                                  </div>
+
+                                  <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
+                                      <div class="product-item">
+                                          <img class="product-single-image" src="{{product.image.url}}" data-zoom-image="{{product.image.url}}" width="468" height="468" alt="product" />
+                                      </div>
+
+
+
+                                  </div>
+                                  <!-- End .product-single-carousel -->
+                                  <span class="prod-full-screen">
+                                      <i class="icon-plus"></i>
+                                  </span>
+                              </div>
+
+                              <div class="prod-thumbnail owl-dots">
+                                  <div class="owl-dot">
+                                      <img src="{{product.image.url}}" width="110" height="110" alt="product-thumbnail" />
+                                  </div>
+
+                              </div>
+                          </div>
+                          <!-- End .product-single-gallery -->
+
+                          <div class="col-xl-7 col-md-6 product-single-details">
+                              <h1 class="product-title">{{product.name}}</h1>
+
+                              <div class="product-nav">
+                                  <div class="product-prev">
+                                      <a href="#">
+                                          <span class="product-link"></span>
+
+                                          <span class="product-popup">
+                                              <span class="box-content">
+                                                  <img alt="product" width="150" height="150"
+                                                      src="{% static 'images/demoes/demo29/products/small/product-1.jpg' %}"
+                                                      style="padding-top: 0px;">
+
+                                                  <span>Wooden Box</span>
+                                          </span>
+                                          </span>
+                                      </a>
+                                  </div>
+
+                                  <div class="product-next">
+                                      <a href="#">
+                                          <span class="product-link"></span>
+
+                                          <span class="product-popup">
+                                              <span class="box-content">
+                                                  <img alt="product" width="150" height="150"
+                                                      src="{% static 'images/demoes/demo29/products/small/product-2.jpg' %}"
+                                                      style="padding-top: 0px;">
+
+                                                  <span>Trellis Pillow</span>
+                                          </span>
+                                          </span>
+                                      </a>
+                                  </div>
+                              </div>
+
+                              <div class="ratings-container">
+                                  <div class="product-ratings">
+                                      <span class="ratings" style="width:60%"></span>
+                                      <!-- End .ratings -->
+                                      <span class="tooltiptext tooltip-top"></span>
+                                  </div>
+                                  <!-- End .product-ratings -->
+
+                                  <a href="#" class="rating-link">( 6 Reviews )</a>
+                              </div>
+                              <!-- End .ratings-container -->
+
+                              <hr class="short-divider">
+
+                              <div class="price-box">
+                                <span class="old-price">${{product.old_price|floatformat:2}}</span>
+                                <span class="new-price">${{product.price|floatformat:2}}</span>
+                            </div>
+                              <!-- End .price-box -->
+
+                              <div class="product-desc">
+                              <!-- {{ product.description | safe }} End .product-desc-content -->
+
+                              </div>
+                              <!-- End .product-desc -->
+
+                              <ul class="single-info-list">
+                                  <!---->
+                                  <li>
+                                      SKU:
+                                      <strong>{{product.sku}}</strong>
+                                  </li>
+
+                                  <li>
+                                      CATEGORY:
+                                      <strong>
+                                        <a href="{% url 'category' main_category.slug category.slug sub_category.slug %}" class="product-category">{{ sub_category.title }}</a>
+                                    </strong>
+                                  </li>
+                              </ul>
+
+                              <div class="product-filters-container">
+                                  <div class="product-single-filter filter-with-img">
+                                      <label class="font2">Size:</label>
+                                      <ul class="config-size-list">
+                                          <li>
+                                              <a href="javascript:;" class="d-flex align-items-center justify-content-center p-0">
+                                                  <img src="{% static 'images/demoes/demo29/products/zoom/product-1.jpg' %}" width="30" height="30" alt="filter-img" />
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="javascript:;" class="d-flex align-items-center justify-content-centerjpg p-0">
+                                                  <img src="{% static 'images/demoes/demo29/products/zoom/product-2.jpg' %}" width="30" height="30" alt="filter-img" />
+                                              </a>
+                                          </li>
+                                          <li class="">
+                                              <a href="javascript:;" class="d-flex align-items-center justify-content-center p-0">
+                                                  <img src="{% static 'images/demoes/demo29/products/zoom/product-3.jpg' %}" width="30" height="30" alt="filter-img" />
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </div>
+
+                                  <div class="product-single-filter">
+                                      <label class="font2">Color:</label>
+                                      <ul class="config-size-list config-color-list config-filter-list">
+                                          <li class="">
+                                              <a href="javascript:;" class="filter-color border-0" style="background-color: rgb(1, 136, 204);"></a>
+                                          </li>
+                                          <li class="">
+                                              <a href="javascript:;" class="filter-color border-0 initial disabled" style="background-color: rgb(221, 181, 119);"></a>
+                                          </li>
+                                          <li class="">
+                                              <a href="javascript:;" class="filter-color border-0" style="background-color: rgb(96, 133, 165);"></a>
+                                          </li>
+                                      </ul>
+                                  </div>
+
+                                  <div class="product-single-filter">
+                                      <label></label>
+                                      <a class="font1 text-uppercase clear-btn" href="#">Clear</a>
+                                  </div>
+                                  <!---->
+                              </div>
+
+                              <div class="product-action">
+                                <div class="price-box product-filtered-price">
+                                    <del class="old-price"><span>$286.00</span></del>
+                                    <span class="product-price">$245.00</span>
+                                </div>
+
+                                <div class="product-single-qty">
+                                    <input class="horizontal-quantity form-control" type="text">
+                                </div>
+                            <!-- End .product-single-qty -->
+                            {% csrf_token %}
+                            <button href="javascript:;" id="addToCart" data-id="{{product.id}}" data-action="add" class="btn btn-dark add-cart mr-2">
+                              Add To Cart
+                            </button>
+                          
+                            <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
+                          </div>
+                              <hr class="divider mb-0 mt-0"> </hr>
+
+                              <div class="product-single-share mb-2">
+                                  <label class="sr-only">Share:</label>
+
+                                  <div class="social-icons mr-2">
+                                      <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
+                                      <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+                                      <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank" title="Linkedin"></a>
+                                      <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank" title="Google +"></a>
+                                      <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
+                                  </div>
+
+                                  <form method="POST" id="form" data-id="{{ product.id }}">
+                                    {% csrf_token %}
+                                    
+                                    {% if saveitem %}
+                                      {% if request.user.is_authenticated %}
+                                        <a href="sdsd.html" class="btn-icon-wish add-wishlist"  >
+                                          <i class="icon-wishlist-2"  id="heart" data-id="{{ product.id }}"></i>
+                                        </a>
+                                      {% else %}
+                                        <a class="btn-icon-wish remove-wishlist" type="submit" style="background: none; border: none">
+                                          <i class="icon-wishlist-1"  id="heart" data-id="{{ product.id }}"></i>
+                                        </a>
+                                      {% endif %}
+                                    {% else %}
+                                      <a class="btn-icon-wish add-wishlist" type="submit" style="background: none; border: none">
+                                        <i class="icon-wishlist-2"  id="heart" data-id="{{ product.id }}"></i>
+                                      </a>
+                                    {% endif %}
+                                  </form>
+                             
+                                </div>
+                              <!-- გასაკეთებელია ვიშლისტი კარგად End .product single-share -->
+                          </div>
+                          <!-- End .product-single-details -->
+                      </div>
+                      <!-- End .row -->
+                  </div>
+                  <!-- End .product-single-container -->
+
+                  <div class="product-single-tabs">
+                      <ul class="nav nav-tabs" role="tablist">
+                          <li class="nav-item">
+                              <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
+                          </li>
+
+                          <li class="nav-item">
+                              <a class="nav-link" id="product-tab-tags" data-toggle="tab" href="#product-tags-content" role="tab" aria-controls="product-tags-content" aria-selected="false">Additional
+                                  Information</a>
+                          </li>
+
+                          <li class="nav-item">
+                              <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews (1)</a>
+                          </li>
+                      </ul>
+
+                      <div class="tab-content">
+                          <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
+                              <div class="product-desc-content">
+                           {{ product.description | safe }}
+
+                            </div>
+                              <!-- {{ product.description | safe }} End .product-desc-content -->
+                          </div>
+                          <!-- End .tab-pane -->
+
+                          <div class="tab-pane fade" id="product-tags-content" role="tabpanel" aria-labelledby="product-tab-tags">
+                              <table class="table table-striped mt-2">
+                                  <tbody>
+                                      <tr>
+                                          <th>Weight</th>
+                                          <td>23 kg</td>
+                                      </tr>
+
+                                      <tr>
+                                          <th>Dimensions</th>
+                                          <td>12 × 24 × 35 cm</td>
+                                      </tr>
+
+                                      <tr>
+                                          <th>Color</th>
+                                          <td>Black, Green, Indigo</td>
+                                      </tr>
+
+                                      <tr>
+                                          <th>Size</th>
+                                          <td>Large, Medium, Small</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <!-- End .tab-pane -->
+
+                          <div class="tab-pane fade" id="product-reviews-content" role="tabpanel" aria-labelledby="product-tab-reviews">
+                              <div class="product-reviews-content">
+                                  <h3 class="reviews-title">1 review for Men Black Sports Shoes</h3>
+
+                                  <div class="comment-list">
+                                      <div class="comments">
+                                          <figure class="img-thumbnail">
+                                              <img src="{% static 'images/blog/author.jpg' %}" alt="author" width="80" height="80">
+                                          </figure>
+
+                                          <div class="comment-block">
+                                              <div class="comment-header">
+                                                  <div class="comment-arrow"></div>
+
+                                                  <div class="ratings-container float-sm-right">
+                                                      <div class="product-ratings">
+                                                          <span class="ratings" style="width:60%"></span>
+                                                          <!-- End .ratings -->
+                                                          <span class="tooltiptext tooltip-top"></span>
+                                                      </div>
+                                                      <!-- End .product-ratings -->
+                                                  </div>
+
+                                                  <span class="comment-by">
+                                                      <strong>Joe Doe</strong> – April 12, 2018
+                                                  </span>
+                                              </div>
+
+                                              <div class="comment-content">
+                                                  <p>Excellent.</p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="divider"></div>
+
+                                  <div class="add-product-review">
+                                      <h3 class="review-title">Add a review</h3>
+
+                                      <form action="#" class="comment-form m-0">
+                                          <div class="rating-form">
+                                              <label for="rating">Your rating <span
+                                                      class="required">*</span></label>
+                                              <span class="rating-stars">
+                                                  <a class="star-1" href="#">1</a>
+                                                  <a class="star-2" href="#">2</a>
+                                                  <a class="star-3" href="#">3</a>
+                                                  <a class="star-4" href="#">4</a>
+                                                  <a class="star-5" href="#">5</a>
+                                              </span>
+
+                                              <select name="rating" id="rating" required="" style="display: none;">
+                                                  <option value="">Rate…</option>
+                                                  <option value="5">Perfect</option>
+                                                  <option value="4">Good</option>
+                                                  <option value="3">Average</option>
+                                                  <option value="2">Not that bad</option>
+                                                  <option value="1">Very poor</option>
+                                              </select>
+                                          </div>
+
+                                          <div class="form-group">
+                                              <label>Your review <span class="required">*</span></label>
+                                              <textarea cols="5" rows="6" class="form-control form-control-sm"></textarea>
+                                          </div>
+                                          <!-- End .form-group -->
+
+
+                                          <div class="row">
+                                              <div class="col-md-6 col-xl-12">
+                                                  <div class="form-group">
+                                                      <label>Name <span class="required">*</span></label>
+                                                      <input type="text" class="form-control form-control-sm" required>
+                                                  </div>
+                                                  <!-- End .form-group -->
+                                              </div>
+
+                                              <div class="col-md-6 col-xl-12">
+                                                  <div class="form-group">
+                                                      <label>Email <span class="required">*</span></label>
+                                                      <input type="text" class="form-control form-control-sm" required>
+                                                  </div>
+                                                  <!-- End .form-group -->
+                                              </div>
+
+                                              <div class="col-md-6 col-xl-12">
+                                                  <div class="custom-control custom-checkbox">
+                                                      <input type="checkbox" class="custom-control-input" id="save-name" />
+                                                      <label class="custom-control-label mb-0" for="save-name">Save my
+                                                          name, email, and website in this browser for the next
+                                                          time I
+                                                          comment.</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <input type="submit" class="btn btn-primary" value="Submit">
+                                      </form>
+                                  </div>
+                                  <!-- End .add-product-review -->
+                              </div>
+                              <!-- End .product-reviews-content -->
+                          </div>
+                          <!-- End .tab-pane -->
+                      </div>
+                      <!-- End .tab-content -->
+                  </div>
+                  <!-- End .product-single-tabs -->
+              </div>
+              <!-- End .col-lg-9 -->
+
+              <div class="sidebar-overlay"></div>
+              <div class="sidebar-toggle custom-sidebar-toggle"><i class="fas fa-sliders-h"></i></div>
+              <aside class="sidebar-product col-lg-3 padding-left-lg mobile-sidebar">
+                  <div class="sidebar-wrapper">
+
+                      <div class="widget">
+                          <h3 class="widget-title text-uppercase">Featured Products</h3>
+
+                          <div class=" widget-body">
+                              <div class="product-intro">
+                                  <div class="product-default left-details product-widget">
+                                      <figure>
+                                          <a href="demo29-product.html">
+                                              <img src="{% static 'images/demoes/demo29/products/grey/dining/dining(3).jpg' %}" width="75" height="75" alt="product" />
+                                          </a>
+                                      </figure>
+                                      <div class="product-details">
+                                          <h3 class="product-title"> <a href="demo29-product.html">Product Short
+                                                  Name</a> </h3>
+                                          <div class="ratings-container">
+                                              <div class="product-ratings">
+                                                  <span class="ratings" style="width:100%"></span>
+                                                  <!-- End .ratings -->
+                                                  <span class="tooltiptext tooltip-top"></span>
+                                              </div>
+                                              <!-- End .product-ratings -->
+                                          </div>
+                                          <!-- End .product-container -->
+                                          <div class="price-box">
+                                              <span class="product-price">$49.00</span>
+                                          </div>
+                                          <!-- End .price-box -->
+                                      </div>
+                                      <!-- End .product-details -->
+                                  </div>
+                                  <div class="product-default left-details product-widget">
+                                      <figure>
+                                          <a href="demo29-product.html">
+                                              <img src="{% static 'images/demoes/demo29/products/grey/bedroom/bedroom(4).jpg' %}" width="75" height="75" alt="product" />
+                                          </a>
+                                      </figure>
+                                      <div class="product-details">
+                                          <h3 class="product-title"> <a href="demo29-product.html">Product Short
+                                                  Name</a> </h3>
+                                          <div class="ratings-container">
+                                              <div class="product-ratings">
+                                                  <span class="ratings" style="width:100%"></span>
+                                                  <!-- End .ratings -->
+                                                  <span class="tooltiptext tooltip-top"></span>
+                                              </div>
+                                              <!-- End .product-ratings -->
+                                          </div>
+                                          <!-- End .product-container -->
+                                          <div class="price-box">
+                                              <span class="product-price">$49.00</span>
+                                          </div>
+                                          <!-- End .price-box -->
+                                      </div>
+                                      <!-- End .product-details -->
+                                  </div>
+                                  <div class="product-default left-details product-widget">
+                                      <figure>
+                                          <a href="demo29-product.html">
+                                              <img src="{% static 'images/demoes/demo29/products/grey/kitchen/kitchen(1).jpg' %}" width="75" height="75" alt="product" />
+                                          </a>
+                                      </figure>
+                                      <div class="product-details">
+                                          <h3 class="product-title"> <a href="demo29-product.html">Product Short
+                                                  Name</a> </h3>
+                                          <div class="ratings-container">
+                                              <div class="product-ratings">
+                                                  <span class="ratings" style="width:100%"></span>
+                                                  <!-- End .ratings -->
+                                                  <span class="tooltiptext tooltip-top"></span>
+                                              </div>
+                                              <!-- End .product-ratings -->
+                                          </div>
+                                          <!-- End .product-container -->
+                                          <div class="price-box">
+                                              <span class="product-price">$49.00</span>
+                                          </div>
+                                          <!-- End .price-box -->
+                                      </div>
+                                      <!-- End .product-details -->
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- End .widget-body -->
+                      </div>
+                      <!-- End .widget -->
+
+                      <div class="widget widget-block">
+                          <h3 class="widget-title text-uppercase">Custom HTML Block</h3>
+
+                          <div class="widget-body">
+                              <h4 class="widget-subtitle font1">This is a custom sub-title.</h4>
+
+                              <p class="font2 ls-0">Lorem ipsum dolor ist amet, consec tetur elitad adipiscing Cras non placerat mi.
+                              </p>
+                          </div>
+                          <!-- End .widget-body -->
+                      </div>
+                      <!-- End .widget -->
+
+                      <div class="widget widget-banner">
+                          <div class="home-banner pb-0 mb-2 mb-lg-0">
+                              <figure style="background-color: #222529;">
+                                  <img src="{% static 'images/demoes/demo29/banners/banner-sidebar.jpg' %}" width="313" height="379" alt="Banner" />
+                              </figure>
+                              <div class="banner-content content-top">
+                                  <span class="font2">check new arrivals</span>
+                                  <h4><strong>cool lamps</strong></h4>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- End .widget -->
+                  </div>
+              </aside>
+              <!-- End .col-md-3 -->
+          </div>
+          <!-- End .row -->
+
+          <div class="products-section pt-0">
+              <h2 class="section-title">Related Products</h2>
+
+              <div class="products-slider owl-carousel owl-theme dots-top dots-small 5col" data-owl-options="{
+                  'dots': true
+              }">
+                  <div class="product-default inner-quickview left-details inner-icon">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/grey/bedroom/bedroom(1).jpg' %}" width="257" height="257" alt="Product" />
+                          </a>
+                          <div class="btn-icon-group">
+                              <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                                      class="icon-shopping-cart"></i></a>
+                          </div>
+                          <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick
+                              View</a>
+                      </figure>
+                      <div class="product-details">
+                          <div class="category-wrap">
+                              <div class="category-list">
+                                  <a href="demo29-shop.html" class="product-category">category</a>
+                              </div>
+                              <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                      class="icon-heart"></i></a>
+                          </div>
+                          <h3 class="product-title">
+                              <a href="demo29-product.html">Product Short Name</a>
+                          </h3>
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default inner-quickview inner-icon">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/grey/outdoor/outdoor(2).jpg' %}" width="257" height="257" alt="Product" />
+                          </a>
+                          <div class="btn-icon-group">
+                              <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                                      class="icon-shopping-cart"></i></a>
+                          </div>
+                          <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick
+                              View</a>
+                      </figure>
+                      <div class="product-details">
+                          <div class="category-wrap">
+                              <div class="category-list">
+                                  <a href="demo29-shop.html" class="product-category">category</a>
+                              </div>
+                              <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                      class="icon-heart"></i></a>
+                          </div>
+                          <h3 class="product-title">
+                              <a href="demo29-product.html">Wooden Arm Chair</a>
+                          </h3>
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default inner-quickview inner-icon">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/grey/dining/dining(1).jpg' %}" width="257" height="257" alt="Product" />
+                          </a>
+                          <div class="btn-icon-group">
+                              <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                                      class="icon-shopping-cart"></i></a>
+                          </div>
+                          <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick
+                              View</a>
+                      </figure>
+                      <div class="product-details">
+                          <div class="category-wrap">
+                              <div class="category-list">
+                                  <a href="demo29-shop.html" class="product-category">category</a>
+                              </div>
+                              <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                      class="icon-heart"></i></a>
+                          </div>
+                          <h3 class="product-title">
+                              <a href="demo29-product.html">Drawer</a>
+                          </h3>
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default inner-quickview inner-icon">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/grey/kitchen/kitchen(2).jpg' %}" width="257" height="257" alt="Product" />
+                          </a>
+                          <div class="btn-icon-group">
+                              <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                                      class="icon-shopping-cart"></i></a>
+                          </div>
+                          <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick
+                              View</a>
+                      </figure>
+                      <div class="product-details">
+                          <div class="category-wrap">
+                              <div class="category-list">
+                                  <a href="demo29-shop.html" class="product-category">category</a>
+                              </div>
+                              <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                      class="icon-heart"></i></a>
+                          </div>
+                          <h3 class="product-title">
+                              <a href="demo29-product.html">Product Short Name</a>
+                          </h3>
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default inner-quickview inner-icon">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/grey/office/office(4).jpg' %}" width="257" height="257" alt="Product" />
+                          </a>
+                          <div class="btn-icon-group">
+                              <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                                      class="icon-shopping-cart"></i></a>
+                          </div>
+                          <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick
+                              View</a>
+                      </figure>
+                      <div class="product-details">
+                          <div class="category-wrap">
+                              <div class="category-list">
+                                  <a href="demo29-shop.html" class="product-category">category</a>
+                              </div>
+                              <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                      class="icon-heart"></i></a>
+                          </div>
+                          <h3 class="product-title">
+                              <a href="demo29-product.html">Product Short Name</a>
+                          </h3>
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default inner-quickview inner-icon">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/grey/kitchen/kitchen(7).jpg' %}" width="257" height="257" alt="Product" />
+                          </a>
+                          <div class="btn-icon-group">
+                              <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                                      class="icon-shopping-cart"></i></a>
+                          </div>
+                          <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">Quick
+                              View</a>
+                      </figure>
+                      <div class="product-details">
+                          <div class="category-wrap">
+                              <div class="category-list">
+                                  <a href="demo29-shop.html" class="product-category">category</a>
+                              </div>
+                              <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                      class="icon-heart"></i></a>
+                          </div>
+                          <h3 class="product-title">
+                              <a href="demo29-product.html">Product Short Name</a>
+                          </h3>
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+              </div>
+              <!-- End .products-slider -->
+          </div>
+          <!-- End .products-section -->
+
+          <hr class="mt-0 m-b-5" />
+
+          <div class="product-widgets-container row pb-2">
+              <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
+                  <h4 class="section-sub-title">Featured Products</h4>
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-1.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Wooden Box</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-2.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Trellis Pillow</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top">5.00</span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-3.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Blue Pillow</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
+                  <h4 class="section-sub-title">Best Selling Products</h4>
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-3.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Blue Pillow</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top">5.00</span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-1.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Wooden Box</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-2.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Trellis Pillow</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top">5.00</span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
+                  <h4 class="section-sub-title">Latest Products</h4>
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-2.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Wooden Box</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-4.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Product Name</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top">5.00</span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-5.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Product Name</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
+                  <h4 class="section-sub-title">Top Rated Products</h4>
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-3.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Blue Pillow</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-1.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Wooden Box</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top">5.00</span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+
+                  <div class="product-default left-details product-widget">
+                      <figure>
+                          <a href="demo29-product.html">
+                              <img src="{% static 'images/demoes/demo29/products/small/product-2.jpg' %}" width="74" height="74" alt="product">
+                          </a>
+                      </figure>
+
+                      <div class="product-details">
+                          <h3 class="product-title"> <a href="demo29-product.html">Trellis Pillow</a> </h3>
+
+                          <div class="ratings-container">
+                              <div class="product-ratings">
+                                  <span class="ratings" style="width:100%"></span>
+                                  <!-- End .ratings -->
+                                  <span class="tooltiptext tooltip-top"></span>
+                              </div>
+                              <!-- End .product-ratings -->
+                          </div>
+                          <!-- End .product-container -->
+
+                          <div class="price-box">
+                              <span class="product-price">$49.00</span>
+                          </div>
+                          <!-- End .price-box -->
+                      </div>
+                      <!-- End .product-details -->
+                  </div>
+              </div>
+          </div>
+          <!-- End .row -->
+      </div>
+      <!-- End .container -->
+    </main>
+    <!-- End .main -->
+
+    <script>
+        document.getElementById("addToCart").addEventListener("click", function() {
+            var productId = this.getAttribute("data-id");
+            var action = this.getAttribute("data-action");
+    
+            if (!productId || !action) {
+                console.error("Missing productId or action");
+                return;
+            }
+    
+            // Make the AJAX request to update the cart
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/updateCart/", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Update the UI or perform any additional actions
+                        // based on the success of the action
+                        console.log("Success:", xhr.responseText);
+                        location.reload(); // Refresh the page
+                    } else {
+                        // Handle the error case
+                        console.error("Error:", xhr.status, xhr.statusText);
+                    }
+                }
+            };
+    
+            var data = JSON.stringify({ p_id: productId, action: action });
+            xhr.send(data);
+        });
+    
+        // Function to get the value of a cookie by name
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                var cookies = document.cookie.split(";");
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === name + "=") {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+    
+
+
+<script>
+    let counter = "{{counter}}"
+    let heartIcon = document.getElementById('heart')
+    let heartContainer = document.getElementsByClassName('btn-icon-wish add-wishlist')
+    let form = document.getElementById("form");
+  
+   
+    form.addEventListener("click", function(e) {
+      e.preventDefault()
+      if(user=='AnonymousUser'){
+        console.log('nsnsnsnsn')
+        
+        document.getElementById('removeItem').innerText = 'You need to be signed in'
+      }
+      
+      console.log(e.target)
+      counter++;
+      product_id = e.target.dataset.id
+      console.log(product_id)
+      if (counter % 2 == 0) {
+        counter = 0;
+        
+      }
+      console.log(counter);
+     
+     
+      const data = { counter: counter, d: product_id };
+      console.log(data['d'])
+      let url = '/addsaveitems'
+      fetch(url, {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+          'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          console.log(typeof(data))
+          if(data > 0){
+           
+              console.log('weeeeeeeeeeeeeeeee')
+              heartIcon.setAttribute("class","icon-wishlist-2" )
+
+              
+          }
+          else{
+              
+              
+              heartIcon.setAttribute("class","icon-wishlist-2" )
+
+              
+              
+          }
+          
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+  
+  
+    });
+   
+  </script>
+    
+    
+    
+    
+
+    
+{% endblock %}

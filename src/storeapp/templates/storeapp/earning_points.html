@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+
+    .header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .no-earning-points {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .balance-container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .balance-label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .balance-amount {
+        font-size: 18px;
+        color: #ff8c00;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container">
+    <h1 class="header">Check-In Page</h1>
+
+    {% if today_points %}
+        <p>You earned {{ today_points }} points today.</p>
+    {% else %}
+        <p class="no-earning-points">No earning points available for today.</p>
+    {% endif %}
+
+    <div class="balance-container">
+        <span class="balance-label">Total Balance:</span>
+        <span class="balance-amount">{{ total_balance }} Points = ${{ balance_dollars }}</span>
+    </div>
+</div>
+{% endblock %}

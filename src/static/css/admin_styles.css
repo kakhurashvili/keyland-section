@@ -1,0 +1,12 @@
+/* admin_styles.css */
+
+.beautiful-description-form {
+    width: 100%;
+    height: 200px;
+    resize: vertical;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  

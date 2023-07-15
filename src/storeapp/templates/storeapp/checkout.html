@@ -1,0 +1,183 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+  <style>
+      #cart_image {
+          width: 50px;
+          height: 50px;
+      }
+
+      #cart_image img {
+          width: 100%;
+          height: 100%;
+      }
+  </style>
+
+
+  <div class="container">
+      <div class="row">
+          <!-- Shipping-Form Section -->
+          <div class="col-md-6">
+              <div class="uk-width-xlarge uk-margin">
+                  <div class="uk-card uk-card-small uk-card-default uk-card-body">
+                      {% if customer_address %}
+                          {% for address in customer_address %}
+                              <h4>Current Address</h4>
+                              <h5>{{ address.home_address }} {{ address.bus_stop }}, {{ address.city }}, {{ address.state }}</h5>
+                              <a href="{% url 'changeaddress' %}"><button class="btn btn-info">Change Address</button></a>
+                          {% endfor %}
+                      {% else %}
+                          <form class="row g-3" id="shipping-form" method="POST">
+                              {% csrf_token %}
+                              <div id="shippingInfo">
+                                  <h3>Shipping Information</h3>
+                                  <br>
+                                  <div class="row">
+                                      {% for field in form %}
+                                          <div class="col-md-6">
+                                              <label for="inputEmail4" class="form-label">{{ field.label }}</label>
+                                              {{ field }}
+                                              <br>
+                                          </div>
+                                      {% endfor %}
+                                  </div>
+                              </div>
+                              <div class="col-12">
+                                  <div class="d-grid gap-2">
+                                      <button class="btn btn-primary" type="submit" id="cbtn">Continue</button>
+                                  </div>
+                              </div>
+                              <div class="col-12">
+                                  <div class="d-grid gap-2">
+                                      <div id="pbtn" class="hidden"></div>
+                                  </div>
+                              </div>
+                          </form>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          <!-- Cart Section -->
+          <div class="col-md-6">
+              <div class="uk-width-xlarge uk-margin">
+                  <div class="uk-card uk-card-small uk-card-default uk-card-body">
+                      <table class="table">
+                          <thead>
+                              <tr>
+                                  <h2>Order Summary</h2>
+                                  <h3><strong>Total: ${{ cart.cart_total|floatformat:'2' }}</strong></h3>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <th scope="col"><h5>Item</h5></th>
+                                  <th scope="col"><h5></h5></th>
+                                  <th scope="col"><h5>Quantity</h5></th>
+                                  <th scope="col"><h5>Price</h5></th>
+                                  <th scope="col"><h5></h5></th>
+                                  <th scope="col"><h5>Total</h5></th>
+                              </tr>
+                              {% for item in cartitems %}
+                                  <tr>
+                                      <td scope="row">
+                                          <div id="cart_image"><img src="{{ item.product.image.url }}"></div>
+                                      </td>
+                                      <td><h5>{{ item.product.name }}</h5></td>
+                                      <td><h5>x{{ item.quantity }}</h5></td>
+                                      <td class="product-price" data-original-price="{{ item.product.price }}"><h5>${{ item.product.price }}</h5></td>
+                                      <td><h5></h5></td>
+                                      <td><h5>${{ item.subTotal|floatformat:2 }}</h5></td>
+                                  </tr>
+                              {% endfor %}
+                              <tr>
+                                  <td colspan="3"><h5>Total Points to Deduct:</h5></td>
+                                  <td><h5 id="points_to_deduct">$</h5></td>
+                              </tr>
+                              <tr>
+                                  <td colspan="3"><h5>Available Points:</h5></td>
+                                  <td><h5>{{ balance_dollars }}</h5></td>
+                              </tr>
+                              <td>
+                                  <input type="checkbox" id="use_points" name="use_points">
+                              </td>              
+                          </tbody>
+                      </table>
+                      <button class="btn btn-primary" id="checkout-btn">Checkout</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<script>
+var total = "{{ cart.cart_total }}";
+var totalPointsBalance = "{{ total_balance }}"; // Retrieve the total points balance from the backend
+var pointsToDeduct = 0;
+
+// Function to calculate the points to deduct based on the checkbox selection
+function calculatePointsToDeduct() {
+    var usePointsCheckbox = document.getElementById("use_points");
+    var pointsToDeductElement = document.getElementById("points_to_deduct");
+
+    if (usePointsCheckbox.checked) {
+        pointsToDeduct = parseFloat(totalPointsBalance) / 100;
+    } else {
+        pointsToDeduct = 0;
+    }
+
+    pointsToDeductElement.innerText = pointsToDeduct.toFixed(2);
+
+    // Update the product prices
+    var productPrices = document.getElementsByClassName("product-price");
+    for (var i = 0; i < productPrices.length; i++) {
+        var originalPrice = parseFloat(productPrices[i].dataset.originalPrice);
+        var updatedPrice = originalPrice - pointsToDeduct;
+        productPrices[i].innerText = "$" + updatedPrice.toFixed(2);
+    }
+}
+
+// Add event listener to the use_points checkbox
+var usePointsCheckbox = document.getElementById("use_points");
+usePointsCheckbox.addEventListener("change", calculatePointsToDeduct);
+
+// Initial calculation of points to deduct
+calculatePointsToDeduct();
+
+// Checkout button click event
+var checkoutBtn = document.getElementById("checkout-btn");
+checkoutBtn.addEventListener("click", function() {
+    var usePointsCheckbox = document.getElementById("use_points");
+
+    var form = document.getElementById("shipping-form");
+    var formData = new FormData(form);
+
+    // Append the points to deduct to the form data
+    formData.append("points_to_deduct", pointsToDeduct);
+
+    // Send the form data to the server for further processing
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "{% url 'checkout' %}", true);  // Update the URL to match your Django checkout URL
+    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Success
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                // Redirect to success page or perform further actions
+                window.location.href = "{% url 'checkout_success' %}";
+            } else {
+                // Handle errors
+                alert(response.error_message);
+            }
+        } else {
+            // Request failed
+            alert("Error: " + xhr.status);
+        }
+    };
+    xhr.send(formData);
+});
+
+</script>
+
+{% endblock %}
