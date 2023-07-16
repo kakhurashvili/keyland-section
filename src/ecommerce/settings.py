@@ -10,7 +10,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&0d*=ierlh4$c9740351$))4#@g+f((ixx#6ig5_k7vxg#@9ip'
+import random
+import string
+
+# Generate a random secret key
+def generate_secret_key():
+    chars = string.ascii_letters + string.digits + string.punctuation
+    return ''.join(random.choice(chars) for _ in range(50))
+
+# Get or generate the secret key
+SECRET_KEY = os.environ.get('SECRET_KEY') or generate_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -158,6 +167,34 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# HTTPS/SSL Configuration
+# Replace the placeholders with the appropriate paths and settings for your environment
+
+# Set secure proxy headers if your Django application is behind a reverse proxy like Nginx
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Set the secure cookie settings
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Set HSTS (HTTP Strict Transport Security) headers
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Set the SSL/TLS certificate file paths
+# Replace '/path/to/ssl_certificate.crt' with the actual path to your SSL/TLS certificate file
+# Replace '/path/to/ssl_certificate.key' with the actual path to your SSL/TLS private key file
+# If using Let's Encrypt, you can specify the certificate and key file paths provided by Let's Encrypt
+# You can also use Certbot or another ACME client to automate the certificate management
+SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = 443
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+
 
 
 # Default primary key field type
