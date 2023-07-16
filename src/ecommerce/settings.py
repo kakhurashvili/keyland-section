@@ -172,11 +172,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Replace the placeholders with the appropriate paths and settings for your environment
 
 # Set secure proxy headers if your Django application is behind a reverse proxy like Nginx
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Set the secure cookie settings
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 # Set HSTS (HTTP Strict Transport Security) headers
 SECURE_HSTS_SECONDS = 31536000  # 1 year
@@ -188,12 +189,12 @@ SECURE_HSTS_PRELOAD = True
 # Replace '/path/to/ssl_certificate.key' with the actual path to your SSL/TLS private key file
 # If using Let's Encrypt, you can specify the certificate and key file paths provided by Let's Encrypt
 # You can also use Certbot or another ACME client to automate the certificate management
-SECURE_SSL_REDIRECT = True
-SECURE_SSL_REDIRECT = 443
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = 443
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# # CSRF_COOKIE_HTTPONLY = True
 
 
 
