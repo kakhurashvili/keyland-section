@@ -21,7 +21,7 @@ def generate_secret_key():
 # Get or generate the secret key
 SECRET_KEY = os.environ.get('SECRET_KEY') or generate_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ALLOWED_HOSTS = ['.section.app']
