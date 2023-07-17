@@ -23,6 +23,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY') or generate_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ALLOWED_HOSTS = ['.section.app']
 
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'UserProfile',
     'api',
     'colorfield',
+    'sslserver',
 
     'ckeditor',
     'rest_framework'
@@ -165,8 +167,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'admindashboard', 'static'),
 ]
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/static/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 # HTTPS/SSL Configuration
 # Replace the placeholders with the appropriate paths and settings for your environment
@@ -196,6 +198,18 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
 
+# SSL certificate and key file paths
+CERT_FILE = os.path.join(BASE_DIR, 'cert.pem')
+KEY_FILE = os.path.join(BASE_DIR,  'key.pem')
+
+# Use the file paths in your Django settings
+SSLCERTFILE = CERT_FILE
+SSLKEYFILE = KEY_FILE
+# Set the SSL certificate and key file paths
+
+
+# Optional: Set the SSL server port (default is 8443)
+SSLPORT = 8443
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

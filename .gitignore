@@ -4,3 +4,7 @@
 __pycache__/
 local_settings.py
 .env
+src/staticfiles/
+src/static/media/
+src/key.pem
+src/cert.pem
