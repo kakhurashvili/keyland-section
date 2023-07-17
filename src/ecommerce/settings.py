@@ -198,18 +198,18 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
 
-# SSL certificate and key file paths
-CERT_FILE = os.path.join(BASE_DIR, 'cert.pem')
-KEY_FILE = os.path.join(BASE_DIR,  'key.pem')
+# # SSL certificate and key file paths
+# CERT_FILE = os.path.join(BASE_DIR, 'cert.pem')
+# KEY_FILE = os.path.join(BASE_DIR,  'key.pem')
 
-# Use the file paths in your Django settings
-SSLCERTFILE = CERT_FILE
-SSLKEYFILE = KEY_FILE
-# Set the SSL certificate and key file paths
+# # Use the file paths in your Django settings
+# SSLCERTFILE = CERT_FILE
+# SSLKEYFILE = KEY_FILE
+# # Set the SSL certificate and key file paths
 
 
-# Optional: Set the SSL server port (default is 8443)
-SSLPORT = 8443
+# # Optional: Set the SSL server port (default is 8443)
+# SSLPORT = 8443
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
