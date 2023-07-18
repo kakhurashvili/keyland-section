@@ -21,7 +21,7 @@ def generate_secret_key():
 # Get or generate the secret key
 SECRET_KEY = os.environ.get('SECRET_KEY') or generate_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ALLOWED_HOSTS = ['.section.app']
@@ -167,6 +167,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'admindashboard', 'static'),
 ]
 
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -242,4 +244,3 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 # AWS_ACCESS_KEY_ID  = os.environ.get('AWS_ACCESS_KEY')
 # AWS_SECRET_ACCESS_KEY =  os.environ.get('AWS_SECRET_KEY')
 # AWS_STORAGE_BUCKET_NAME = 'shopit-bucket'
-
