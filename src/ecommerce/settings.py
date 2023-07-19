@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY') or generate_secret_key()
 DEBUG = False
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-ALLOWED_HOSTS = ['.section.app']
+ALLOWED_HOSTS = ['www.keyland.ge', 'keyland.ge']
 
 
 # Application definition
