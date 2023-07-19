@@ -44,3 +44,8 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+
+class AppSettings(models.Model):
+    debug_mode = models.BooleanField(default=False)
+    allowed_hosts = models.TextField(blank=True)

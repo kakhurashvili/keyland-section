@@ -45,3 +45,23 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
+from django.contrib import admin
+from .models import AppSettings
+from django.conf import settings
+
+class AppSettingsAdmin(admin.ModelAdmin):
+    list_display = ('debug_mode', 'allowed_hosts',)
+    fields = ('debug_mode', 'allowed_hosts',)
+
+    def save_model(self, request, obj, form, change):
+        # Override the save_model method to change the DEBUG setting
+        # based on the value of debug_mode field in the AppSettings model.
+        if obj.debug_mode:
+            settings.DEBUG = True
+        else:
+            settings.DEBUG = False
+
+        # Save the AppSettings instance
+        obj.save()
+
+admin.site.register(AppSettings, AppSettingsAdmin)
