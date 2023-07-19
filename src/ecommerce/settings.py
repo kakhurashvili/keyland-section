@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'UserProfile',
     'api',
     'colorfield',
-    'sslserver',
+    #'sslserver',
 
     'ckeditor',
     'rest_framework'
