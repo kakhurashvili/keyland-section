@@ -168,8 +168,10 @@ STATICFILES_DIRS = [
 ]
 
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/usr/src/app/src/media/'
+
+
 
 # HTTPS/SSL Configuration
 # Replace the placeholders with the appropriate paths and settings for your environment
@@ -181,16 +183,16 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-# # Set HSTS (HTTP Strict Transport Security) headers
-# SECURE_HSTS_SECONDS = 31536000  # 1 year
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+# Set HSTS (HTTP Strict Transport Security) headers
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
-# # Set the SSL/TLS certificate file paths
-# # Replace '/path/to/ssl_certificate.crt' with the actual path to your SSL/TLS certificate file
-# # Replace '/path/to/ssl_certificate.key' with the actual path to your SSL/TLS private key file
-# # If using Let's Encrypt, you can specify the certificate and key file paths provided by Let's Encrypt
-# # You can also use Certbot or another ACME client to automate the certificate management
+# Set the SSL/TLS certificate file paths
+# Replace '/path/to/ssl_certificate.crt' with the actual path to your SSL/TLS certificate file
+# Replace '/path/to/ssl_certificate.key' with the actual path to your SSL/TLS private key file
+# If using Let's Encrypt, you can specify the certificate and key file paths provided by Let's Encrypt
+# You can also use Certbot or another ACME client to automate the certificate management
 # SECURE_SSL_REDIRECT = True
 # SECURE_SSL_REDIRECT = 443
 # SECURE_SSL_REDIRECT = True
