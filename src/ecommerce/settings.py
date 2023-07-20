@@ -183,6 +183,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+# Session timeout set to 30 days (in seconds)
+SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
+
 # Set HSTS (HTTP Strict Transport Security) headers
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
