@@ -21,7 +21,7 @@ from django.views.static import serve
 from django.urls import re_path
 
 urlpatterns = [
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
     path('dj-admin/', admin.site.urls),
     path('admin/', include('admindashboard.urls')),
