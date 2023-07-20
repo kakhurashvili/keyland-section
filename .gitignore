@@ -8,3 +8,4 @@ src/staticfiles/
 src/static/media/
 src/key.pem
 src/cert.pem
+k8s-cpy
