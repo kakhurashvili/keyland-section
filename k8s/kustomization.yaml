@@ -1,0 +1,10 @@
+configMapGenerator:
+ - name: router-config-mount
+   files:
+     - ./router.conf
+
+resources:
+ - deploy.yaml
+
+ - router.yml
+ - ingress-service.yml
