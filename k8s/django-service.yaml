@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: console-project
+  name: section-project-deployment
+  namespace: default
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: section-project-deployment
+  sessionAffinity: None
+  type: ClusterIP

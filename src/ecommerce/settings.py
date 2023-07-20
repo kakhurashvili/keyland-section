@@ -189,10 +189,10 @@ CSRF_COOKIE_SECURE = True
 # Session timeout set to 30 days (in seconds)
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 
-# Set HSTS (HTTP Strict Transport Security) headers
-SECURE_HSTS_SECONDS = 31536000  # 1 year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+# # Set HSTS (HTTP Strict Transport Security) headers
+# SECURE_HSTS_SECONDS = 31536000  # 1 year
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
 
 # Set the SSL/TLS certificate file paths
 # Replace '/path/to/ssl_certificate.crt' with the actual path to your SSL/TLS certificate file
@@ -200,8 +200,8 @@ SECURE_HSTS_PRELOAD = True
 # If using Let's Encrypt, you can specify the certificate and key file paths provided by Let's Encrypt
 # You can also use Certbot or another ACME client to automate the certificate management
 # SECURE_SSL_REDIRECT = True
-# SECURE_SSL_REDIRECT = 443
-# SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = 443
+SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_HTTPONLY = True

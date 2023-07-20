@@ -5,6 +5,6 @@ configMapGenerator:
 
 resources:
  - deploy.yaml
-
+ - django-service.yaml
  - router.yml
  - ingress-service.yml
